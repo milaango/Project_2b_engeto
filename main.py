@@ -118,10 +118,61 @@ def zkontroluj_tah(hracuv_symbol, pole):
     return False
 
 
-# Vytisknutí úvodu a prázdného hracího pole:
+def hra() -> str:
+    """
+    Funkce pokrývající celý proces hry, vrací string s výsledkem hry.
+    """
+    
+    # Počáteční hrací pole uložené do listu a sada kamenů (symbolů) v listu:
+    hraci_pole = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    poradi_tahu = ["o", "x", "o", "x", "o", "x", "o", "x", "o"]
 
-print(
-    f"""
+    # For cyklus pro 9 průchodů (počet čtverců k dispozici v hracím poli):
+    for symbol in range(len(poradi_tahu)):
+
+        print("=" * 44)
+        volba_hrace = input(f"Hráči {poradi_tahu[symbol]}, zvol pole: ")
+        print("=" * 44)
+    
+        # Kontrola formátu vstupu a obsazenosti pole přes uživatelskou funkci 
+        # zkontrolujvstup(); pokud je volba neplatná, je hráč vyzván k nápravě
+
+        while not zkontroluj_vstup(volba_hrace, hraci_pole):
+            volba_hrace = input("Zvol znovu pole: ")
+            print("=" * 44)
+    
+        # Samotný tah hráče přes uživatelskou funkci tah(), 
+        # kam vkládáme symbol a volbu hráče (číslo) a aktuální hrací pole 
+        # v listu; získáme aktualizované hrací pole v listu 
+        # a ukázku současné podoby pole:
+    
+        hraci_pole, ukazka_pole = tah(
+            poradi_tahu[symbol], int(volba_hrace), hraci_pole
+         )
+        print(ukazka_pole)
+
+        # Kontrola, zdali současný tah hráče vede k jeho vítězství
+        # pomocí funkce zkontroluj_tah(), kam vkládáme symbol hráče a aktuální 
+        # hrací pole v listu:
+
+        if zkontroluj_tah(poradi_tahu[symbol], hraci_pole):
+            return (
+    f"{'=' * 44} \n"
+    f"Gratuluji, hráč {poradi_tahu[symbol]} zvítězil! \n"
+    f"{'=' * 44}"
+)
+    
+    else:
+        # Pokud for cyklus proběhl bez přerušení (nikdo nezvítězil), 
+        # nastává remíza:
+        return (f"{"=" * 44} \nRemíza! \n{"=" * 44}")
+
+
+def main():
+
+    # Vytisknutí úvodu a prázdného hracího pole:
+
+    print(f"""
 Vítejte ve hře Tic Tac Toe
 ============================================
 PRAVIDLA HRY:
@@ -149,45 +200,12 @@ Nechť hra započne!
 """
 )
 
+    # Zavolání funkce hra(), která pokrývá celý průběh hry, 
+    # a vytisknutí výsledku hry
 
-# Počáteční hrací pole uložené do listu a sada kamenů (symbolů) v listu:
-hraci_pole = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-poradi_tahu = ["o", "x", "o", "x", "o", "x", "o", "x", "o"]
+    vysledek_hry = hra()
+    print(vysledek_hry)
 
-# For cyklus pro 9 průchodů (počet čtverců k dispozici v hracím poli):
-for symbol in range(len(poradi_tahu)):
-    print("=" * 44)
-    volba_hrace = input(f"Hráči {poradi_tahu[symbol]}, zvol pole: ")
-    print("=" * 44)
 
-    # Kontrola formátu vstupu a obsazenosti pole přes uživatelskou funkci 
-    # zkontrolujvstup(), pokud je volba neplatná, je hráč vyzván k nápravě:
-    
-    while not zkontroluj_vstup(volba_hrace, hraci_pole):
-        volba_hrace = input("Zvol znovu pole: ")
-        print("=" * 44)
-
-    # Samotný tah hráče přes uživatelskou funkci tah(), 
-    # kam vkládáme symbol a volbu hráče (číslo) a aktuální hrací pole v listu;
-    # získáme aktualizované hrací pole v listu a ukázku současné podoby pole:
-    
-    hraci_pole, ukazka_pole = tah(
-        poradi_tahu[symbol], int(volba_hrace), hraci_pole
-        )
-    print(ukazka_pole)
-
-    # Kontrola, zdali současný tah hráče vede k jeho vítězství
-    # pomocí funkce zkontroluj_tah(), kam vkládáme symbol hráče a aktuální 
-    # hrací pole v listu:
-
-    if zkontroluj_tah(poradi_tahu[symbol], hraci_pole):
-        print("=" * 44)
-        print(f"Gratuluji, hráč {poradi_tahu[symbol]} zvítězil!")
-        print("=" * 44)
-        break
-
-else:
-    # Pokud cyklus proběhl bez přerušení (nikdo nezvítězil), nastává remíza:
-    print("=" * 44)
-    print("Remíza!")
-    print("=" * 44)
+if __name__ == "__main__":
+    main()

@@ -5,8 +5,8 @@ Druhý projekt v rámci Python Akademie od ENGETO.
 ## O projektu
 Jedná se o jednoduchou konzolovou hru pro dva hráče. Hráči se střídají v zadávání tahů do konzole a jejich cílem je umístit tři své symboly (`o` nebo `x`) do jedné řady (vodorovně, svisle či diagonálně).
 
-## Požadavky na spuštění
-Je doporučena verze Pythonu 3.6 nebo vyšší. Projekt nevyžaduje žádné externí knihovny; stačí jej spustit v Terminálu či IDE dle vlastního výběru.
+## Požadavky a spuštění projektu
+Je doporučena verze Pythonu 3.6 nebo vyšší. Projekt nevyžaduje žádné externí knihovny a stačí jej spustit v terminálu či IDE dle vlastního výběru.
 
 ## Průběh hry
 Po spuštění projektu jsou hráčům zobrazena pravidla a následně je první hráč (`o`) vyzván k umístění prvního symbolu do hracího pole. Jednotlivá políčka hracího pole jsou reprezentována čísly 1 až 9:
